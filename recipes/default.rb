@@ -7,4 +7,5 @@
 # All rights reserved - Do Not Redistribute
 #
 
-
+require_recipe 'compile-ruby::dependencies'
+require_recipe 'compile-ruby::compile'

@@ -1,14 +1,19 @@
-version    = default.ruby.version
-patchlevel = default.ruby.patchlevel
+version    = node.default.ruby.version
+patchlevel = node.default.ruby.patchlevel
 ruby_name  = "ruby-#{version}-p#{patchlevel}"
+src        = "#{ruby_name}.tar.gz"
+download   = "http://ftp.ruby-lang.org/pub/ruby/1.9/#{ruby_name}.tar.gz"
 
 bash "download and install ruby" do
   user "root"
   cwd "/tmp"
   code <<-EOF
-  wget http://ftp.ruby-lang.org/pub/#{version}ruby/#{version}/ruby-#{ruby_name}.tar.gz
-  tar -xvzf ruby-#{ruby_name}.tar.gz
-  cd ruby-#{ruby_name}/
+  echo "Downloading #{download} to $PWD"
+  wget #{download}
+  echo "Extracting $PWD/#{src}"
+  tar -zxvf #{src}
+  cd /tmp/#{ruby_name}/
+  echo "Configuring $PWD/configure"
   ./configure
   make
   sudo make install
